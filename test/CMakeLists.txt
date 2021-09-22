@@ -13,9 +13,19 @@ set(SRC_LOGGING_TEST
 ${PROJECT_SOURCE_DIR}/Logging_test.cpp
 )
 
+set(SRC_MUTEX_TEST
+${PROJECT_SOURCE_DIR}/Mutex_test.cpp
+)
+
+set(SRC_CONDITION_TEST
+${PROJECT_SOURCE_DIR}/Condition_test.cpp
+)
+
 add_compile_options(-std=c++14)
 
 link_libraries(pthread)
 
 SET(CMAKE_BUILD_TYPE "Debug")
 add_executable(Logging_test ${SRC_BASE} ${SRC_LOGGING_TEST})
+add_executable(Mutex_test ${SRC_BASE} ${SRC_MUTEX_TEST})
+add_executable(Condition_test ${SRC_BASE} ${SRC_CONDITION_TEST})
