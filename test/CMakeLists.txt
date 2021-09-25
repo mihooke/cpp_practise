@@ -21,6 +21,10 @@ set(SRC_CONDITION_TEST
 ${PROJECT_SOURCE_DIR}/Condition_test.cpp
 )
 
+set(SRC_COUNTDOWN_TEST
+${PROJECT_SOURCE_DIR}/CountDown_test.cpp
+)
+
 add_compile_options(-std=c++14)
 
 link_libraries(pthread)
@@ -32,3 +36,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./build)
 add_executable(Logging_test ${SRC_BASE} ${SRC_LOGGING_TEST})
 add_executable(Mutex_test ${SRC_BASE} ${SRC_MUTEX_TEST})
 add_executable(Condition_test ${SRC_BASE} ${SRC_CONDITION_TEST})
+add_executable(CountDown_test ${SRC_BASE} ${SRC_COUNTDOWN_TEST})
