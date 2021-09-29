@@ -7,6 +7,7 @@ include_directories("../base/")
 set(SRC_BASE
 ${PROJECT_SOURCE_DIR}/../base/LogStream.cpp
 ${PROJECT_SOURCE_DIR}/../base/Logging.cpp
+${PROJECT_SOURCE_DIR}/../base/AsyncLogging.cpp
 )
 
 set(SRC_LOGGING_TEST
@@ -25,6 +26,10 @@ set(SRC_COUNTDOWN_TEST
 ${PROJECT_SOURCE_DIR}/CountDown_test.cpp
 )
 
+set(SRC_ASYNCLOGGING_TEST
+${PROJECT_SOURCE_DIR}/AsyncLogging_test.cpp
+)
+
 add_compile_options(-std=c++14)
 
 link_libraries(pthread)
@@ -37,3 +42,4 @@ add_executable(Logging_test ${SRC_BASE} ${SRC_LOGGING_TEST})
 add_executable(Mutex_test ${SRC_BASE} ${SRC_MUTEX_TEST})
 add_executable(Condition_test ${SRC_BASE} ${SRC_CONDITION_TEST})
 add_executable(CountDown_test ${SRC_BASE} ${SRC_COUNTDOWN_TEST})
+add_executable(AsyncLogging_test ${SRC_BASE} ${SRC_ASYNCLOGGING_TEST})
