@@ -41,24 +41,24 @@ private:
     std::string _funcname;
 };
 
-static LogLevel g_logLevel = LogLevel::DEBUG;
+extern LogLevel g_logLevel;
 
-inline LogLevel logLevel()
+inline LogLevel Logging::logLevel()
 {
     return g_logLevel;
 }
 
-#define LOG_TRACE if (mihooke::logLevel() <= mihooke::LogLevel::TRACE) \
+#define LOG_TRACE if (mihooke::Logging::logLevel() <= mihooke::LogLevel::TRACE) \
     mihooke::Logging(__FILE__, __LINE__, mihooke::LogLevel::TRACE, __func__).stream()
-#define LOG_DEBUG if (mihooke::logLevel() <= mihooke::LogLevel::DEBUG) \
+#define LOG_DEBUG if (mihooke::Logging::logLevel() <= mihooke::LogLevel::DEBUG) \
     mihooke::Logging(__FILE__, __LINE__, mihooke::LogLevel::DEBUG, __func__).stream()
-#define LOG_INFO if (mihooke::logLevel() <= mihooke::LogLevel::INFO)\
+#define LOG_INFO if (mihooke::Logging::logLevel() <= mihooke::LogLevel::INFO)\
     mihooke::Logging(__FILE__, __LINE__, mihooke::LogLevel::INFO, __func__).stream()
-#define LOG_WARNING if (mihooke::logLevel() <= mihooke::LogLevel::WARNING) \
+#define LOG_WARNING if (mihooke::Logging::logLevel() <= mihooke::LogLevel::WARNING) \
     mihooke::Logging(__FILE__, __LINE__, mihooke::LogLevel::WARNING, __func__).stream()
-#define LOG_ERROR if (mihooke::logLevel() <= mihooke::LogLevel::ERROR) \
+#define LOG_ERROR if (mihooke::Logging::logLevel() <= mihooke::LogLevel::ERROR) \
     mihooke::Logging(__FILE__, __LINE__, mihooke::LogLevel::ERROR, __func__).stream()
-#define LOG_FATAL if (mihooke::logLevel() <= mihooke::LogLevel::FATAL) \
+#define LOG_FATAL if (mihooke::Logging::logLevel() <= mihooke::LogLevel::FATAL) \
     mihooke::Logging(__FILE__, __LINE__, mihooke::LogLevel::FATAL, __func__).stream()
 
 }; // namespace mihooke

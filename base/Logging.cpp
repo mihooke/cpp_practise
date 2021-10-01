@@ -48,6 +48,8 @@ std::string now()
 Logging::OutputFunc g_output = defaultOutput;
 Logging::FlushFunc g_flush = defaultFlush;
 
+LogLevel g_logLevel = LogLevel::TRACE;
+
 // 08:48:17.067 - INFO - adapter.cpp - 352 - func - message.
 Logging::Logging(const std::string &filename, int line, LogLevel level, const std::string &funcname)
     : _filename(filename), _line(line), _level(level), _funcname(funcname)
@@ -66,10 +68,6 @@ Logging::~Logging()
     }
 }
 
-LogLevel Logging::logLevel()
-{
-    return g_logLevel;
-}
 void Logging::setLogLevel(LogLevel level)
 {
     g_logLevel = level;
