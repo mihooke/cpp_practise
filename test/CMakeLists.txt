@@ -10,6 +10,7 @@ ${PROJECT_SOURCE_DIR}/../base/Logging.cpp
 ${PROJECT_SOURCE_DIR}/../base/AsyncLogging.cpp
 ${PROJECT_SOURCE_DIR}/../base/CurrentThread.cpp
 ${PROJECT_SOURCE_DIR}/../base/Thread.cpp
+${PROJECT_SOURCE_DIR}/../base/ThreadPool.cpp
 )
 
 set(SRC_LOGGING_TEST
@@ -36,6 +37,10 @@ set(SRC_THREAD_TEST
 ${PROJECT_SOURCE_DIR}/Thread_test.cpp
 )
 
+set(SRC_THREADPOOL_TEST
+${PROJECT_SOURCE_DIR}/ThreadPool_test.cpp
+)
+
 add_compile_options(-std=c++14)
 
 link_libraries(pthread)
@@ -50,3 +55,4 @@ add_executable(Condition_test ${SRC_BASE} ${SRC_CONDITION_TEST})
 add_executable(CountDown_test ${SRC_BASE} ${SRC_COUNTDOWN_TEST})
 add_executable(AsyncLogging_test ${SRC_BASE} ${SRC_ASYNCLOGGING_TEST})
 add_executable(Thread_test ${SRC_BASE} ${SRC_THREAD_TEST})
+add_executable(ThreadPool_test ${SRC_BASE} ${SRC_THREADPOOL_TEST})
