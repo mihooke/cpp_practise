@@ -11,6 +11,8 @@ ${PROJECT_SOURCE_DIR}/../base/AsyncLogging.cpp
 ${PROJECT_SOURCE_DIR}/../base/CurrentThread.cpp
 ${PROJECT_SOURCE_DIR}/../base/Thread.cpp
 ${PROJECT_SOURCE_DIR}/../base/ThreadPool.cpp
+${PROJECT_SOURCE_DIR}/../net/INetAddress.cpp
+${PROJECT_SOURCE_DIR}/../net/Sockets.cpp
 )
 
 set(SRC_LOGGING_TEST
@@ -45,6 +47,10 @@ set(SRC_BLOCKINGQUEUE_TEST
 ${PROJECT_SOURCE_DIR}/BlockingQueue_test.cpp
 )
 
+set(SRC_INETADDRESS_TEST
+${PROJECT_SOURCE_DIR}/INetAddress_test.cpp
+)
+
 add_compile_options(-std=c++14)
 
 link_libraries(pthread)
@@ -61,3 +67,4 @@ add_executable(AsyncLogging_test ${SRC_BASE} ${SRC_ASYNCLOGGING_TEST})
 add_executable(Thread_test ${SRC_BASE} ${SRC_THREAD_TEST})
 add_executable(ThreadPool_test ${SRC_BASE} ${SRC_THREADPOOL_TEST})
 add_executable(BlockingQueue_test ${SRC_BASE} ${SRC_BLOCKINGQUEUE_TEST})
+add_executable(INetAddress_test ${SRC_BASE} ${SRC_INETADDRESS_TEST})
