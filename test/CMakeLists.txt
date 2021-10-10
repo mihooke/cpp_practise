@@ -13,6 +13,7 @@ ${PROJECT_SOURCE_DIR}/../base/Thread.cpp
 ${PROJECT_SOURCE_DIR}/../base/ThreadPool.cpp
 ${PROJECT_SOURCE_DIR}/../net/INetAddress.cpp
 ${PROJECT_SOURCE_DIR}/../net/Sockets.cpp
+${PROJECT_SOURCE_DIR}/../net/Buffer.cpp
 )
 
 set(SRC_LOGGING_TEST
@@ -51,6 +52,10 @@ set(SRC_INETADDRESS_TEST
 ${PROJECT_SOURCE_DIR}/INetAddress_test.cpp
 )
 
+set(SRC_BUFFER_TEST
+${PROJECT_SOURCE_DIR}/Buffer_test.cpp
+)
+
 add_compile_options(-std=c++14)
 
 link_libraries(pthread)
@@ -68,3 +73,4 @@ add_executable(Thread_test ${SRC_BASE} ${SRC_THREAD_TEST})
 add_executable(ThreadPool_test ${SRC_BASE} ${SRC_THREADPOOL_TEST})
 add_executable(BlockingQueue_test ${SRC_BASE} ${SRC_BLOCKINGQUEUE_TEST})
 add_executable(INetAddress_test ${SRC_BASE} ${SRC_INETADDRESS_TEST})
+add_executable(Buffer_test ${SRC_BASE} ${SRC_BUFFER_TEST})
