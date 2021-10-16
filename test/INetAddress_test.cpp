@@ -1,4 +1,4 @@
-#include "../net/InetAddress.h"
+#include "../net/INetAddress.h"
 #include <assert.h>
 #include "../base/Logging.h"
 

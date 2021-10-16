@@ -1,6 +1,6 @@
 #include "Sockets.h"
 #include "../base/Logging.h"
-#include "InetAddress.h"
+#include "INetAddress.h"
 
 #include <netinet/in.h>   //sockaddr_in
 #include <netinet/tcp.h>  //tcp_info

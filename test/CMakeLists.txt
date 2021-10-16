@@ -14,6 +14,10 @@ ${PROJECT_SOURCE_DIR}/../base/ThreadPool.cpp
 ${PROJECT_SOURCE_DIR}/../net/INetAddress.cpp
 ${PROJECT_SOURCE_DIR}/../net/Sockets.cpp
 ${PROJECT_SOURCE_DIR}/../net/Buffer.cpp
+${PROJECT_SOURCE_DIR}/../net/Channel.cpp
+${PROJECT_SOURCE_DIR}/../net/TcpConnection.cpp
+${PROJECT_SOURCE_DIR}/../net/Epoller.cpp
+${PROJECT_SOURCE_DIR}/../net/EventLoop.cpp
 )
 
 set(SRC_LOGGING_TEST
@@ -56,7 +60,7 @@ set(SRC_BUFFER_TEST
 ${PROJECT_SOURCE_DIR}/Buffer_test.cpp
 )
 
-add_compile_options(-std=c++14)
+add_compile_options(-std=c++17)
 
 link_libraries(pthread)
 
