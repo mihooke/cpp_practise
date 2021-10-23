@@ -9,10 +9,12 @@ namespace mihooke {
 
 class InetAddress {
  public:
+  InetAddress() = default;
   InetAddress(const std::string &ip, uint16_t port);
   explicit InetAddress(uint16_t port);
   explicit InetAddress(const struct sockaddr_in &saddr);
 
+  void setSockAddr(const struct sockaddr_in &addr) { _addr = addr; }
   const struct sockaddr *getSockAddr() const {
     return reinterpret_cast<const sockaddr *>(&_addr);
   }

@@ -23,7 +23,7 @@ Epoller::~Epoller() { ::close(_epollfd); }
 // signal(7).
 std::vector<Channel *> Epoller::poll(int timeoutMs) {
   int numOfEvents =
-      ::epoll_wait(_epollfd, &(*_events.begin()), _events.size(), timeoutMs);
+      ::epoll_wait(_epollfd, _events.data(), _events.size(), timeoutMs);
   int originErrorno = errno;
   if (numOfEvents < 0) {
     if (originErrorno != EINTR) {

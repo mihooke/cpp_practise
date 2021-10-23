@@ -25,7 +25,7 @@ void Sockets::listen() {
     LOG_FATAL << "Sockets::listenOrDie failed";
   }
 }
-int Sockets::accept() {
+int Sockets::accept(InetAddress& clientAddr) {
   struct sockaddr_in addr;
   memset(&addr, 0, sizeof(addr));
   socklen_t len = static_cast<socklen_t>(sizeof(addr));
@@ -62,6 +62,7 @@ int Sockets::accept() {
         break;
     }
   }
+  clientAddr.setSockAddr(addr);
   return connfd;
 }
 

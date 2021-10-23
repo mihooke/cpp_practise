@@ -17,7 +17,7 @@ class Sockets {
 
   void bind(const InetAddress& addr);
   void listen();
-  int accept();
+  int accept(InetAddress& clientAddr);
 
   void shutdownWrite();
 
