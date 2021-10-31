@@ -4,6 +4,7 @@
 #include <any>
 #include <functional>
 #include <memory>
+#include <string>
 
 #include "Buffer.h"
 #include "INetAddress.h"
@@ -13,7 +14,7 @@ namespace mihooke {
 class Channel;
 class EventLoop;
 class Sockets;
-class TcpConnection {
+class TcpConnection : public std::enable_shared_from_this<TcpConnection> {
  public:
   using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
   using ConnectionCallback = std::function<void(const TcpConnectionPtr &)>;
@@ -28,6 +29,30 @@ class TcpConnection {
   TcpConnection(EventLoop *loop, int fd, const InetAddress &localAddr,
                 const InetAddress &peerAddr);
   ~TcpConnection();
+
+  void setConnectionCallback(const ConnectionCallback &cb) {
+    _connectionCallback = cb;
+  }
+  void setMessageCallback(const MessageCallback &cb) { _messageCallback = cb; }
+  void setWriteCompleteCallback(const WriteCompleteCallback &cb) {
+    _writeCompleteCallback = cb;
+  }
+  void setHighWaterMarkCallback(const HighWaterMarkCallback &cb) {
+    _highWaterMarkCallback = cb;
+  }
+  void setCloseCallback(const CloseCallback &cb) { _closeCallback = cb; }
+
+  int fd() const;
+
+  void send(const std::string &message);
+  void send(const void *message, int len);
+
+  void destory();
+
+ private:
+  void handleRead();
+  void handleWrite();
+  void handleClose();
 
  private:
   EventLoop *_loop;

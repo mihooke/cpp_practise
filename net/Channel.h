@@ -36,7 +36,7 @@ class Channel {
     _events |= READ;
     update();
   }
-  void diableReading() {
+  void disableReading() {
     _events &= ~READ;
     update();
   }
@@ -44,17 +44,19 @@ class Channel {
     _events |= WRITE;
     update();
   }
-  void diableWriting() {
+  void disableWriting() {
     _events &= ~WRITE;
     update();
   }
-  void diableAll() { _events = NONE; }
+  void disableAll() { _events = NONE; }
   void remove();
 
   int fd() const { return _fd; }
   int events() const { return _events; }
   EventLoop* ownerLoop() { return _loop; }
   bool isNoneEvent() const { return _events == NONE; }
+  bool hasWrite() const { return _events & WRITE; }
+  bool hasRead() const { return _events & READ; }
 
   State state() const { return _state; }
   void setState(State state) { _state = state; }

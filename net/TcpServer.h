@@ -3,6 +3,7 @@
 
 #include "Acceptor.h"
 #include "EventLoop.h"
+#include "EventLoopThreadPool.h"
 #include "TcpConnection.h"
 
 #include <map>
@@ -13,35 +14,43 @@ namespace mihooke {
 
 using std::placeholders::_1;
 using std::placeholders::_2;
+using TcpConnectionPtr = TcpConnection::TcpConnectionPtr;
 
 class EventLoop;
 class TcpServer {
  public:
-  TcpServer(EventLoop *loop, const InetAddress &addr);
+  TcpServer(EventLoop *loop, const InetAddress &addr, int threadNum = 0);
   ~TcpServer();
 
-  void start(int num);
-  void stop();
+  void start();
 
-  void newConnection(int fd, const InetAddress &addr);
+  void setConnectionCallback(const TcpConnection::ConnectionCallback &cb) {
+    _connectionCb = cb;
+  }
+  void setMessageCallback(const TcpConnection::MessageCallback &cb) {
+    _messageCb = cb;
+  }
+  void setWriteCompleteCallback(const TcpConnection::WriteCompleteCallback cb) {
+    _writeCompleteCb = cb;
+  }
+  void setThreadPoolInitCallback(
+      const EventLoopThreadPool::ThreadPoolInitCallback &cb) {
+    _threadPoolInitCb = cb;
+  }
+
+  void newConnection(int fd, const InetAddress &clientAddr);
+  void removeConnection(const TcpConnectionPtr &conn);
 
  private:
   EventLoop *_loop;
   std::unique_ptr<Acceptor> _acceptor;
-  std::vector<EventLoop> _loops;
-  std::map<std::string, TcpConnection::TcpConnectionPtr> _connections;
+  std::unique_ptr<EventLoopThreadPool> _pool;
+  std::map<int, TcpConnectionPtr> _connections;
   TcpConnection::ConnectionCallback _connectionCb;
   TcpConnection::MessageCallback _messageCb;
   TcpConnection::WriteCompleteCallback _writeCompleteCb;
+  EventLoopThreadPool::ThreadPoolInitCallback _threadPoolInitCb;
 };
-
-TcpServer::TcpServer(EventLoop *loop, const InetAddress &addr)
-    : _loop(loop), _acceptor(new Acceptor(loop, addr)) {
-  _acceptor->setReadCallback(
-      std::bind(&TcpServer::newConnection, this, _1, _2));
-}
-
-TcpServer::~TcpServer() {}
 
 }  // namespace mihooke
 
