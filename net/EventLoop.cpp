@@ -39,7 +39,7 @@ EventLoop::EventLoop()
 }
 
 EventLoop::~EventLoop() {
-  _wakeupChannel->diableAll();
+  _wakeupChannel->disableAll();
   _wakeupChannel->remove();
   ::close(_wakeupFd);
   t_threadLoop = nullptr;

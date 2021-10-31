@@ -14,7 +14,8 @@ TcpConnection::TcpConnection(EventLoop *loop, int fd,
       _localAddr(localAddr),
       _peerAddr(peerAddr),
       _sockets(new Sockets(fd)),
-      _channel(new Channel(loop, fd)) {
+      _channel(new Channel(loop, fd)),
+      _state(DISCONNECTED) {
   _channel->setReadCallback(std::bind(&TcpConnection::handleRead, this));
   _channel->setWriteCallback(std::bind(&TcpConnection::handleWrite, this));
   _channel->setCloseCallback(std::bind(&TcpConnection::handleClose, this));
@@ -59,8 +60,15 @@ void TcpConnection::send(const void *message, int len) {
   }
 }
 
+void TcpConnection::established() {
+  _channel->enableReading();
+  _state = CONNECTED;
+  _connectionCallback(shared_from_this());
+}
+
 void TcpConnection::destory() {
   _channel->disableAll();
+  _state = DISCONNECTED;
   _connectionCallback(shared_from_this());
   _channel->remove();
 }
@@ -97,6 +105,8 @@ void TcpConnection::handleWrite() {
 
 void TcpConnection::handleClose() {
   _channel->disableAll();
+  _state = DISCONNECTED;
+  _connectionCallback(shared_from_this());
   _closeCallback(shared_from_this());
 }
 

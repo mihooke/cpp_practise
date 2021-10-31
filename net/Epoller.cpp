@@ -24,6 +24,7 @@ Epoller::~Epoller() { ::close(_epollfd); }
 std::vector<Channel *> Epoller::poll(int timeoutMs) {
   int numOfEvents =
       ::epoll_wait(_epollfd, _events.data(), _events.size(), timeoutMs);
+  LOG_TRACE << "numOfEvents" << numOfEvents;
   int originErrorno = errno;
   if (numOfEvents < 0) {
     if (originErrorno != EINTR) {
@@ -76,6 +77,7 @@ void Epoller::controlEpoll(int operation, Channel *channel) {
   event.events = channel->events();
   event.data.ptr = channel;
   int fd = channel->fd();
+  LOG_TRACE << "update channel" << fd << operation;
   if (::epoll_ctl(_epollfd, operation, fd, &event) < 0) {
     LOG_ERROR << "epoll_ctl" << operation << "failed!";
   }

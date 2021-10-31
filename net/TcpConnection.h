@@ -25,6 +25,11 @@ class TcpConnection : public std::enable_shared_from_this<TcpConnection> {
   using MessageCallback =
       std::function<void(const TcpConnectionPtr &, Buffer *)>;
 
+  enum State {
+    CONNECTED,
+    DISCONNECTED,
+  };
+
  public:
   TcpConnection(EventLoop *loop, int fd, const InetAddress &localAddr,
                 const InetAddress &peerAddr);
@@ -43,10 +48,14 @@ class TcpConnection : public std::enable_shared_from_this<TcpConnection> {
   void setCloseCallback(const CloseCallback &cb) { _closeCallback = cb; }
 
   int fd() const;
+  const InetAddress &localAddr() const { return _localAddr; }
+  const InetAddress &peerAddr() const { return _peerAddr; }
+  bool isConnected() const { return _state == CONNECTED; }
 
   void send(const std::string &message);
   void send(const void *message, int len);
 
+  void established();
   void destory();
 
  private:
@@ -64,6 +73,7 @@ class TcpConnection : public std::enable_shared_from_this<TcpConnection> {
   std::unique_ptr<Channel> _channel;
   std::any _context;
   size_t _highWaterMark;
+  State _state;
   ConnectionCallback _connectionCallback;
   MessageCallback _messageCallback;
   WriteCompleteCallback _writeCompleteCallback;

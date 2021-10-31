@@ -17,7 +17,7 @@ Acceptor::Acceptor(EventLoop* loop, const InetAddress& addr)
 }
 
 Acceptor::~Acceptor() {
-  _channel->diableAll();
+  _channel->disableAll();
   _channel->remove();
 }
 
